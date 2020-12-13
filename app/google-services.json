@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "845276823936",
+    "firebase_url": "https://musleep-7914e.firebaseio.com",
+    "project_id": "musleep-7914e",
+    "storage_bucket": "musleep-7914e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845276823936:android:73c12388013b39b5564165",
+        "android_client_info": {
+          "package_name": "com.musleep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845276823936-0a74h19aop85jhls92eskdprrstbu5r5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.musleep",
+            "certificate_hash": "716d5fd9cfac9087f443fa14dde32abf27ff8dda"
+          }
+        },
+        {
+          "client_id": "845276823936-b7e9hnmatk5pd5jfnm0tat6781u4pqft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.musleep",
+            "certificate_hash": "3dd0f0cb6e53cbd4946e44110ccd918e9c2af668"
+          }
+        },
+        {
+          "client_id": "845276823936-pmogko8pgksv8h3rphpbnm99b9e1gb84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfTuDl3Mp7AMSKXH5SXn-7pJtcZs5FRB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845276823936-ds1bn5qgmvmlqk0r15aal9aj0gjlchr4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
