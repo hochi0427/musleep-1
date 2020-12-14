@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             // Signed in successfully, show authenticated UI.
-           Intent intent = new Intent(MainActivity.this, homescreen.class);
+           Intent intent = new Intent(MainActivity.this, userdata.class);
            startActivity(intent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
