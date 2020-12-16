@@ -39,7 +39,7 @@ public class homescreen extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         imageView = findViewById(R.id.imageView);
-        name = findViewById(R.id.name);
+        name = findViewById(R.id.username);
         signOut = findViewById(R.id.button_sign_out);
 
         signOut.setOnClickListener(new View.OnClickListener(){
