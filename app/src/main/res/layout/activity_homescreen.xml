@@ -1,70 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context=".userdata"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".homescreen">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-
         android:layout_marginTop="20dp"
+
         >
-    <Button
-        android:id="@+id/button_sign_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="800dp"
-        android:background="#cbbeb5"
-        android:text="SignOut" />
+
+        <Button
+            android:id="@+id/button_sign_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1100dp"
+            android:background="@color/light_brown2"
+            android:text="SignOut" />
     </LinearLayout>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="60dp"
         tools:srcCompat="@tools:sample/avatars" />
+
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Name"
-        android:textSize="30sp"
-        android:layout_marginTop="20dp"/>
+        android:textSize="60sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        >
-    <Button
-        android:id="@+id/sleep1"
-        android:layout_width="180dp"
-        android:layout_height="100dp"
-        android:background="@color/light_brown2"
-        android:textSize="30sp"
-        android:text="睡眠資料"
-        android:layout_marginRight="100dp"/>
-    <Button
-        android:id="@+id/sleep2"
-        android:layout_width="180dp"
-        android:layout_height="100dp"
-        android:textSize="30sp"
-        android:text="時間設定" />
-    <Button
-        android:id="@+id/sleep3"
-        android:layout_width="180dp"
-        android:layout_height="100dp"
-        android:textSize="30sp"
-        android:text="睡眠日誌"
-        android:layout_marginLeft="100dp"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sleep1"
+            android:layout_width="260dp"
+            android:layout_height="180dp"
+            android:layout_marginRight="100dp"
+            android:background="@color/light_brown2"
+            android:text="睡眠資料"
+            android:drawableTop="@drawable/ic_baseline_insert_chart_outlined_24"
+            android:textSize="30sp" />
+        <Button
+            android:id="@+id/sleep2"
+            android:layout_width="260dp"
+            android:layout_height="180dp"
+            android:background="@color/light_brown2"
+            android:text="時間設定"
+            android:drawableTop="@drawable/ic_baseline_alarm_24"
+            android:textSize="30sp" />
+        <Button
+            android:id="@+id/sleep3"
+            android:layout_width="260dp"
+            android:layout_height="180dp"
+            android:layout_marginLeft="100dp"
+            android:background="@color/light_brown2"
+            android:text="睡眠日誌"
+            android:drawableTop="@drawable/ic_baseline_content_paste_24"
+            android:textSize="30sp" />
     </LinearLayout>
 
-    </LinearLayout>
+</LinearLayout>
