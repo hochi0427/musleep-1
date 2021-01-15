@@ -6,10 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".sleep_record">
+
     <include
-        android:layout_height="match_parent"
+        layout="@layout/content"
         android:layout_width="match_parent"
-        layout="@layout/content"/>
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-406dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
