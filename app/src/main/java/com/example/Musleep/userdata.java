@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -22,8 +23,12 @@ import android.widget.Toolbar;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -43,6 +48,9 @@ public class userdata extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userdata);
         db = FirebaseFirestore.getInstance();
+        FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
+
+//        Log.i("INFO", uid);
         //設定隱藏標題
         //getSupportActionBar().hide();
         et_name = findViewById(R.id.et_name);
@@ -53,12 +61,12 @@ public class userdata extends AppCompatActivity {
                 String Name = et_name.getText().toString();
                 Map<String,Object> user = new HashMap<>();
                 user.put("Name",Name);
-
                 db.collection("User")
-                        .add(user)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        .document(mAuth.getUid())
+                        .set(user)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
+                            public void onSuccess(Void aVoid) {
                                 Toast.makeText(userdata.this,"Successfull",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), homescreen.class));
                             }
