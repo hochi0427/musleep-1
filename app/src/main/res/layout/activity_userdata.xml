@@ -57,7 +57,7 @@
                 android:textColor="@color/brown"
                 android:textSize="30sp" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -68,7 +68,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/brown"
                 android:textColorHint="@color/brown"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                tools:ignore="MissingClass" />
         </LinearLayout>
 
         <LinearLayout
@@ -134,8 +135,8 @@
             </RadioGroup>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Registerbtn"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_margin="40dp"

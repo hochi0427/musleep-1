@@ -1,8 +1,10 @@
 package com.example.Musleep;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,20 +19,58 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class userdata extends AppCompatActivity {
 
     TextView tvDate;
-    EditText etDate;
+    EditText et_name,etDate;
     DatePickerDialog.OnDateSetListener setListener;
+    MaterialButton Registerbtn;
+    FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userdata);
+        db = FirebaseFirestore.getInstance();
         //設定隱藏標題
         //getSupportActionBar().hide();
+        et_name = findViewById(R.id.et_name);
+        Registerbtn = findViewById(R.id.Registerbtn);
+        Registerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Name = et_name.getText().toString();
+                Map<String,Object> user = new HashMap<>();
+                user.put("Name",Name);
+
+                db.collection("User")
+                        .add(user)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(userdata.this,"Successfull",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), homescreen.class));
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(userdata.this,"Failed",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }
+        });
 
         //性別radio
         RadioButton male = (RadioButton) findViewById(R.id.male);
@@ -41,7 +81,7 @@ public class userdata extends AppCompatActivity {
 
         //出生年月日
         tvDate = findViewById(R.id.tv_date);
-//        etDate = findViewById(R.id.et_date);
+        //etDate = findViewById(R.id.et_date);
 
         Calendar calendar = Calendar.getInstance();
         final  int year = calendar.get(Calendar.YEAR);
@@ -106,11 +146,11 @@ public class userdata extends AppCompatActivity {
     public void RadioClick(View view) {
     }
 
-    public void buttonOnClick(View view) {
-        Button button = (Button) view;
-        Toast toast = Toast.makeText(this, "按鈕已經被點擊", Toast.LENGTH_SHORT);
-        toast.show();
-    }
+//    public void buttonOnClick(View view) {
+//        Button button = (Button) view;
+//        Toast toast = Toast.makeText(this, "按鈕已經被點擊", Toast.LENGTH_SHORT);
+//        toast.show();
+//    }
 
 
 }

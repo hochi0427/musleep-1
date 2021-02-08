@@ -3,8 +3,10 @@ package com.example.Musleep;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,13 +19,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class homescreen extends AppCompatActivity {
 
     ImageView imageView;
     TextView name;
-    Button signOut;
 
     GoogleSignInClient mGoogleSignInClient;
 
@@ -31,6 +35,9 @@ public class homescreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        Log.d("tag","onCreate:");
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -40,18 +47,27 @@ public class homescreen extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
         name = findViewById(R.id.username);
-        signOut = findViewById(R.id.button_sign_out);
 
-        signOut.setOnClickListener(new View.OnClickListener(){
+
+        findViewById(R.id.sleep1).setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.button_sign_out:
-                    signOut();
-                    break;
-                }
+            public void onClick(View view){
+                startActivity(new Intent(getApplicationContext(), sleep_record.class));
             }
         });
+        findViewById(R.id.sleep2).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(getApplicationContext(), sleep_record.class));
+            }
+        });
+        findViewById(R.id.sleep3).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(getApplicationContext(), sleep_diary.class));
+            }
+        });
+
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct != null) {
@@ -62,14 +78,21 @@ public class homescreen extends AppCompatActivity {
             Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
         }
     }
-    private void signOut(){
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>(){
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(homescreen.this,"Signed Out Successfully!", Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                });
+    public void logout(final View view) {
+        FirebaseAuth.getInstance().signOut();
+
+        GoogleSignIn.getClient(this,new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build())
+                .signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                startActivity(new Intent(view.getContext(),MainActivity.class));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(homescreen.this,"Signout Failed.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 }
