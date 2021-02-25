@@ -50,7 +50,6 @@ public class userdata extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
 
-//        Log.i("INFO", uid);
         //設定隱藏標題
         //getSupportActionBar().hide();
         et_name = findViewById(R.id.et_name);
