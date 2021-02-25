@@ -24,6 +24,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class sleep_trend extends Fragment {
+    BarChart barChart;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,6 +94,26 @@ public class sleep_trend extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sleep_trend, container, false);
+        View view = inflater.inflate(R.layout.fragment_sleep_trend, container, false);
+        barChart = (BarChart) view.findViewById(R.id.barChart);
+        ArrayList<BarEntry> visitors = new ArrayList();
+        visitors.add(new BarEntry( 2014,420));
+        visitors.add(new BarEntry( 2015,475));
+        visitors.add(new BarEntry( 2016,500));
+        visitors.add(new BarEntry( 2017,450));
+        visitors.add(new BarEntry( 2018,475));
+
+        BarDataSet barDataSet = new BarDataSet(visitors,"visitors");
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+        barDataSet.setValueTextSize(16f);
+
+        BarData barData = new BarData(barDataSet);
+
+        barChart.setFitBars(true);
+        barChart.setData(barData);
+        barChart.getDescription().setText("Bar Chart Example");
+        barChart.animateY(2000);
+        return view;
     }
 }
