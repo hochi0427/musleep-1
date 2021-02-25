@@ -15,15 +15,14 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/diary_date"
+        <TextClock
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:format12Hour="yyyy/MM/dd EEEE"
             android:gravity="center_vertical"
-            android:text="10月20日 周日"
             android:textColor="#968C8C"
             android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/data_pick"
@@ -71,7 +70,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/header1"
+                    android:id="@+id/header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#CFB194"
@@ -91,6 +90,7 @@
                     android:textAlignment="center"
                     android:textColor="#A86959"
                     android:textSize="16sp" />
+
             </TableRow>
 
             <TableRow
@@ -109,7 +109,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data1"
+                    android:id="@+id/sleeptime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -146,7 +146,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data3"
+                    android:id="@+id/fallsleeptime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -182,7 +182,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data5"
+                    android:id="@+id/wakeup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -219,7 +219,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data7"
+                    android:id="@+id/wakeuptime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -255,7 +255,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data9"
+                    android:id="@+id/totalsleep"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -291,7 +291,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data11"
+                    android:id="@+id/sleepcp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -327,7 +327,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data13"
+                    android:id="@+id/sleepeffec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -363,7 +363,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data15"
+                    android:id="@+id/nap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -399,7 +399,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/data17"
+                    android:id="@+id/naptime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
@@ -420,6 +420,7 @@
 
             </TableRow>
         </TableLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
