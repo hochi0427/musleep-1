@@ -6,11 +6,83 @@
     tools:context=".sleep_data">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:id="@+id/sleep_date"
+            android:text="10月20日 週二"
+            android:textColor="@color/brown"
+            android:textSize="25dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="總計睡眠時間"
+            android:textColor="@color/brown"
+            android:textSize="25dp" />
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:id="@+id/sleep_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:textColor="@color/brown"
+                android:textSize="40dp"
+                />
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="小時"
+                android:gravity="right"
+                android:textColor="@color/brown"
+                android:textSize="25dp"
+                />
+            <TextView
+                android:id="@+id/sleep_min"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="16"
+                android:textColor="@color/brown"
+                android:textSize="40dp"
+                />
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="分鐘"
+                android:gravity="right"
+                android:textColor="@color/brown"
+                android:textSize="25dp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:autoText="false"
-        android:background="@drawable/background"
-        android:text="睡眠數據" />
+        android:gravity="right"
+        android:layout_marginTop="100dp"
+        >
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_width="600dp"
+            android:layout_height="600dp"
+            android:id="@+id/piechart">
+
+        </com.github.mikephil.charting.charts.PieChart>
+    </LinearLayout>
 
 </FrameLayout>
