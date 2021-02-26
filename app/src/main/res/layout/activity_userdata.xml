@@ -8,8 +8,7 @@
     android:orientation="vertical"
     tools:context=".userdata">
 
-    <androidx.appcompat.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/myToolbar"
         android:layout_width="match_parent"
@@ -25,7 +24,7 @@
             android:gravity="center_horizontal"
             android:text="個人資料"
             android:textColor="@color/white"
-            android:textSize="50sp" />
+            android:textSize="50dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -55,7 +54,7 @@
                 android:gravity="right"
                 android:hint="暱稱 : "
                 android:textColor="@color/brown"
-                android:textSize="30sp" />
+                android:textSize="30dp" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
@@ -68,7 +67,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/brown"
                 android:textColorHint="@color/brown"
-                android:textSize="30sp"
+                android:textSize="30dp"
                 tools:ignore="MissingClass" />
         </LinearLayout>
 
@@ -84,7 +83,7 @@
                 android:gravity="right"
                 android:hint="出生年月日 : "
                 android:textColor="@color/brown"
-                android:textSize="30sp" />
+                android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/tv_date"
@@ -93,7 +92,7 @@
                 android:text="選擇日期"
                 android:textAlignment="center"
                 android:textColor="@color/brown"
-                android:textSize="30sp" />
+                android:textSize="30dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -108,30 +107,31 @@
                 android:gravity="right"
                 android:hint="性別 : "
                 android:textColor="@color/brown"
-                android:textSize="30sp" />
+                android:textSize="30dp" />
 
             <RadioGroup
+                android:id="@+id/mRadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/male"
+                    android:id="@+id/A1"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:onClick="RadioClick"
                     android:text="男"
                     android:textColor="@color/brown"
-                    android:textSize="30sp" />
+                    android:textSize="30dp" />
 
                 <RadioButton
-                    android:id="@+id/female"
+                    android:id="@+id/A0"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:onClick="RadioClick"
                     android:text="女"
                     android:textColor="@color/brown"
-                    android:textSize="30sp" />
+                    android:textSize="30dp" />
             </RadioGroup>
         </LinearLayout>
 
@@ -141,7 +141,6 @@
             android:layout_height="50dp"
             android:layout_margin="40dp"
             android:background="@drawable/btn"
-            android:onClick="buttonOnClick"
             android:text="下一步"
             android:textSize="25dp"
             android:theme="@null" />
