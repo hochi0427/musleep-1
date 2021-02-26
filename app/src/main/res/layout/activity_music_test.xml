@@ -33,7 +33,7 @@
         android:src="@drawable/music_pic1" />
 
     <RadioGroup
-        android:id="@+id/radio"
+        android:id="@+id/feelings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/rl_progress1"
