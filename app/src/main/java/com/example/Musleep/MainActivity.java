@@ -29,6 +29,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,11 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if(signInAccount != null || firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(this,sleep_record.class));
-            Toast.makeText(getApplicationContext(), "Fuck!", Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(this,userdata.class));
+            Toast.makeText(getApplicationContext(), "歡迎進入", Toast.LENGTH_SHORT).show();
 
         }else{
-            Toast.makeText(getApplicationContext(), "剛進來判斷狀態", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "未登入", Toast.LENGTH_SHORT).show();
         }
 
         signIn.setOnClickListener(new View.OnClickListener(){
@@ -84,8 +87,12 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> signInTask = GoogleSignIn.getSignedInAccountFromIntent(data);
 
         try {
+//              GoogleSignInAccount signInAcc = signInTask.getResult(ApiException.class);
 //              db = FirebaseFirestore.getInstance();
+//              firebaseAuth = firebaseAuth.getInstance();
 //              uidref = db.collection("User").document(firebaseAuth.getUid());
+//              Log.i("INFO", firebaseAuth.getUid());
+//              Log.i("GG", String.valueOf(uidref));
 //              uidref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
             GoogleSignInAccount signInAcc = signInTask.getResult(ApiException.class);
@@ -94,11 +101,18 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
+                    db = FirebaseFirestore.getInstance();
+                    Map<String,Object> space = new HashMap<>();
+                    space.put("ID",firebaseAuth.getUid());
+                    db.collection("User")
+                            .document(firebaseAuth.getUid())
+                            .set(space);
+//                    uidref = db.collection("User").document(firebaseAuth.getUid());
                     Toast.makeText(getApplicationContext(), "Your Google Account is Connected to Our Application.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), userdata.class));
+                    startActivity(new Intent(getApplicationContext(),userdata.class));
 //                    if (task.isSuccessful()){
 //                        DocumentSnapshot document = task.getResult();
-//                        if(document.exists()) {
+//                        if(uidref != null) {
 //                            startActivity(new Intent(getApplicationContext(),homescreen.class));
 //                        }else {
 //                            Toast.makeText(getApplicationContext(), "Your Google Account is Connected to Our Application.", Toast.LENGTH_SHORT).show();

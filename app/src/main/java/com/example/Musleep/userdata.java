@@ -52,8 +52,8 @@ public class userdata extends AppCompatActivity {
         //設定隱藏標題
         //getSupportActionBar().hide();
         et_name = findViewById(R.id.et_name);
-        male = (RadioButton) findViewById(R.id.A1);
-        female = (RadioButton) findViewById(R.id.A0);
+//        male = (RadioButton) findViewById(R.id.A1);
+//        female = (RadioButton) findViewById(R.id.A0);
 
 
         //上傳radiogroup的ID
@@ -64,20 +64,20 @@ public class userdata extends AppCompatActivity {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 switch(selectedId){
                     case R.id.A0:
-                        Map<String,Object> male = new HashMap<>();
-                        male.put("Gender",0);
+                        Map<String,Object> female = new HashMap<>();
+                        female.put("Gender",0);
                         db.collection("User")
                                 .document(mAuth.getUid())
-                                .set(male);
-                        Toast.makeText(userdata.this,"我是男生",Toast.LENGTH_SHORT).show();
+                                .update(female);
+                        Toast.makeText(userdata.this,"我是女生",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.A1:
-                        Map<String,Object> female = new HashMap<>();
-                        female.put("Gender",1);
+                        Map<String,Object> male = new HashMap<>();
+                        male.put("Gender",1);
                         db.collection("User")
                                 .document(mAuth.getUid())
-                                .set(female);
-                        Toast.makeText(userdata.this,"我是女生",Toast.LENGTH_SHORT).show();
+                                .update(male);
+                        Toast.makeText(userdata.this,"我是男生",Toast.LENGTH_SHORT).show();
                         break;
 
                 }
@@ -90,34 +90,33 @@ public class userdata extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Toast.makeText(userdata.this,"Click",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(userdata.this,"Click",Toast.LENGTH_SHORT).show();
 //                Map<String,Object> gender = new HashMap<>();
 //                String Gender = String.valueOf(mOnCheckedChangeListener);
 //                gender.put("Gender",Gender);
 //                db.collection("User")
 //                        .document(mAuth.getUid())
-//                        .set(gender);
+//                        .update(gender);
 
-//                String Name = et_name.getText().toString();
-//                Map<String,Object> user = new HashMap<>();
-//                user.put("Name",Name);
-//                db.collection("User")
-//                        .document(mAuth.getUid())
-////                        .document("k53CGABt5HZKkYf77DQ5k3qOHOc2")
-//                        .set(user)
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(userdata.this,"Successfull",Toast.LENGTH_SHORT).show();
-//                                startActivity(new Intent(getApplicationContext(), homescreen.class));
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(userdata.this,"Failed",Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                });
+                String Name = et_name.getText().toString();
+                Map<String,Object> user = new HashMap<>();
+                user.put("Name",Name);
+                db.collection("User")
+                        .document(mAuth.getUid())
+                        .update(user)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(userdata.this,"Successfull",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), homescreen.class));
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(userdata.this,"Failed",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             }
         });
 
@@ -152,10 +151,36 @@ public class userdata extends AppCompatActivity {
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month+1;
-                String date = year+"/"+month+"/"+day;
+                month = month + 1;
+                String date = year + "/" + month + "/" + day;
+
                 tvDate.setText(date);
+                Log.i("TAG", date);
+                Log.i("TAG", String.valueOf(year));
+                Calendar cal = Calendar.getInstance();
+                int yearNow = cal.get(Calendar.YEAR);
+                int monthNow = cal.get(Calendar.MONTH);
+                int dayNow = cal.get(Calendar.DAY_OF_MONTH);
+
+                int age = yearNow - year;
+                if (monthNow < month || (monthNow == month && dayNow < day)) {
+                    age--;
+                    Log.i("TAG", String.valueOf(age));
+                    Map<String,Object> gg = new HashMap<>();
+                    gg.put("AGE",age);
+                    db.collection("User")
+                            .document(mAuth.getUid())
+                            .update(gg);
+                }else{
+                    Log.i("TAG", String.valueOf(age));
+                    Map<String,Object> ggg = new HashMap<>();
+                    ggg.put("AGE",age);
+                    db.collection("User")
+                            .document(mAuth.getUid())
+                            .update(ggg);
+                };
             }
+
         };
 
 
