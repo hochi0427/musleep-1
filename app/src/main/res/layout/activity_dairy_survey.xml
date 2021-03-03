@@ -1,9 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
     tools:context=".dairy_survey">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal">
+        <TextClock
+            android:id="@+id/today"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:format12Hour="yyyy/MM/dd"
+            android:textColor="#968C8C"
+            android:textSize="30dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal">
+
+
+        <TextView
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:hint= "是否有喝含咖啡因之飲料 : "
+            android:textColor="@color/brown"
+            android:textSize="30dp"
+            android:gravity="right"/>
+
+        <RadioGroup
+            android:id="@+id/drink_coffee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/A1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="是"
+                android:textColor="@color/brown"
+                android:textSize="30dp" />
+
+            <RadioButton
+                android:id="@+id/A0"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="否"
+                android:textColor="@color/brown"
+                android:textSize="30dp" />
+        </RadioGroup>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal">
+
+
+        <TextView
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:hint= "是否有小睡 : "
+            android:textColor="@color/brown"
+            android:textSize="30dp"
+            android:gravity="right"/>
+
+        <RadioGroup
+            android:id="@+id/little_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/B1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="是"
+                android:textColor="@color/brown"
+                android:textSize="30dp" />
+
+            <RadioButton
+                android:id="@+id/B0"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="否"
+                android:textColor="@color/brown"
+                android:textSize="30dp" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+</LinearLayout>
