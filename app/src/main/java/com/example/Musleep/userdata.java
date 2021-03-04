@@ -2,9 +2,11 @@ package com.example.Musleep;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -26,13 +28,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class userdata extends AppCompatActivity {
 
-    TextView tvDate;
+    TextView tvDate, tvd;
     EditText et_name,etDate;
     RadioGroup gender;
     RadioButton male,female;
@@ -42,10 +47,13 @@ public class userdata extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userdata);
+
+
         db = FirebaseFirestore.getInstance();
         FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -183,6 +191,75 @@ public class userdata extends AppCompatActivity {
 
         };
 
+//第二版
+        tvd = findViewById(R.id.tvd);
+        tvd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(userdata.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthofYear, int dayOfMonth) {
+                        //顯示生日（月份要+1，因為這個方法是從0開始算的）
+                        tvd.setText(String.format("%d-%d-%d", year, monthofYear + 1, dayOfMonth));
+
+                        Calendar cal = Calendar.getInstance();
+                        String strDate = year + "-" + monthofYear + "-" + dayOfMonth;
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Date birthDay = null;
+                        try {
+                            birthDay = sdf.parse(strDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        int birth = countAge(birthDay);
+                        if (birth < 0) {
+                            Toast.makeText(getApplicationContext(), "生日輸入有誤", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), birth + "歲", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    private int countAge(Date birthDay) {
+                        Calendar cal = Calendar.getInstance();
+
+                        if (cal.before(birthDay)) {
+                            throw new IllegalArgumentException(
+                                    "The birthDay is before Now.It's unbelievable!");
+                        }
+                        //獲得當前日期
+                        int yearNow = cal.get(Calendar.YEAR);
+                        int monthNow = cal.get(Calendar.MONTH);
+                        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+                        //獲得出生日期
+                        cal.setTime(birthDay);
+                        int yearBirth = cal.get(Calendar.YEAR);
+                        int monthBirth = cal.get(Calendar.MONTH) + 1;
+                        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+                        int age = yearNow - yearBirth;
+                        if (monthNow <= monthBirth) {
+                            if (monthNow == monthBirth) {
+                                if (dayOfMonthNow < dayOfMonthBirth) age--;
+                            } else {
+                                age--;
+                                Map<String,Object> ggg = new HashMap<>();
+                                ggg.put("AGE",age);
+                                db.collection("User")
+                                        .document(mAuth.getUid())
+                                        .update(ggg);
+                            }
+                        }
+                        return age;
+                    }
+                    //設定初始的顯示日期
+                }, 2000, 0, 1).show();
+
+            }
+        });
+
+
 
 
 //        etDate.setOnClickListener(new View.OnClickListener() {
@@ -226,5 +303,70 @@ public class userdata extends AppCompatActivity {
 //        toast.show();
 //    }
 
+    //第二版
+//日期選擇
+
+//    private void dialogDate() {
+//        tv_birthday_set.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new DatePickerDialog(userdata.this, new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int monthofYear, int dayOfMonth) {
+//                        //顯示生日（月份要+1，因為這個方法是從0開始算的）
+//                        tv_birthday_set.setText(String.format("%d-%d-%d", year, monthofYear + 1, dayOfMonth));
+//
+//                        Calendar cal = Calendar.getInstance();
+//                        String strDate = year + "-" + monthofYear + "-" + dayOfMonth;
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                        Date birthDay = null;
+//                        try {
+//                            birthDay = sdf.parse(strDate);
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//                        int birth = countAge(birthDay);
+//                        if (birth < 0) {
+//                            Toast.makeText(getApplicationContext(), "生日輸入有誤", Toast.LENGTH_SHORT).show();
+//
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), birth + "歲", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    }
+//
+//                    private int countAge(Date birthDay) {
+//                        Calendar cal = Calendar.getInstance();
+//
+//                        if (cal.before(birthDay)) {
+//                            throw new IllegalArgumentException(
+//                                    "The birthDay is before Now.It's unbelievable!");
+//                        }
+//                        //獲得當前日期
+//                        int yearNow = cal.get(Calendar.YEAR);
+//                        int monthNow = cal.get(Calendar.MONTH);
+//                        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+//                        //獲得出生日期
+//                        cal.setTime(birthDay);
+//                        int yearBirth = cal.get(Calendar.YEAR);
+//                        int monthBirth = cal.get(Calendar.MONTH) + 1;
+//                        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+//
+//                        int age = yearNow - yearBirth;
+//                        if (monthNow <= monthBirth) {
+//                            if (monthNow == monthBirth) {
+//                                if (dayOfMonthNow < dayOfMonthBirth) age--;
+//                            } else {
+//                                age--;
+//                            }
+//                        }
+//                        return age;
+//                    }
+//                    //設定初始的顯示日期
+//                }, 2000, 0, 1).show();
+//            }
+//        });
+//
+//    }
 
 }
