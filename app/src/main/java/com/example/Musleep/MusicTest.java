@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +27,10 @@ import android.widget.Toast;
 //import com.google.firebase.database.FirebaseDatabase;
 //import com.google.firebase.database.ValueEventListener;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,6 +38,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -232,10 +238,29 @@ public class MusicTest extends AppCompatActivity {
             currentTime.setText(time); //更新目前音樂時間
         });
     }
-
+    private void getAllDocs() {
+        DocumentReference docRef = db.collection("User").document("AmLLKkyqNYVcDCUV3mhTVN8Tfe23").collection("week0").document("FirstScore");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                        Log.d("TAG", "DocumentSnapshot data: " + document.getData().size());
+                    } else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
+    }
 
     //控制上一首，下一首，撥放暫停
     private class onClickControl implements View.OnClickListener{
+        FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
         @Override
         public void onClick(View v) {
             switch (v.getId()){
@@ -277,15 +302,38 @@ public class MusicTest extends AppCompatActivity {
 
                     break;
                 case R.id.btn_next:
-                    //切歌
-                    Log.i("INFO", "onClick: 切歌按鈕被點擊!");
-                    playBtn.setImageResource(R.drawable.pause); //切換成暫停鍵
-                    currentPlaying = ++currentPlaying % playList.size();
-                    prepareMedia();
-                    animator.start();
-                    isPausing = false;
-                    isPlaying = true;
-                    break;
+                    DocumentReference docRef = db.collection("User").document("AmLLKkyqNYVcDCUV3mhTVN8Tfe23").collection("week0").document("FirstScore");
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                                    Log.d("TAG", "DocumentSnapshot data: " + document.getData().size());
+                                    return;
+                                } else {
+                                    Log.d("TAG", "No such document");
+                                }
+                            } else {
+                                Log.d("TAG", "get failed with ", task.getException());
+                            }
+                        }
+                    });
+                    getAllDocs();
+                    if(currentPlaying==7 && document.getData().size()){
+                        startActivity(new Intent(getApplicationContext(), homescreen.class));
+                    }else{
+                        //切歌
+                        Log.i("INFO", "onClick: 切歌按鈕被點擊!");
+                        playBtn.setImageResource(R.drawable.pause); //切換成暫停鍵
+                        currentPlaying = ++currentPlaying % playList.size();
+                        prepareMedia();
+                        animator.start();
+                        isPausing = false;
+                        isPlaying = true;
+                        break;
+                    }
                 default:
                     Log.i("INFO", "onClick: 按鈕被點擊但有bug!");
                     //有bug了
