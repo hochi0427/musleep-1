@@ -71,7 +71,7 @@ public class MusicTest extends AppCompatActivity {
 
 
 
-  @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_test);
@@ -81,93 +81,93 @@ public class MusicTest extends AppCompatActivity {
         stress = findViewById(R.id.stress);
         FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
 
-      //上傳評價
-      RadioGroup radioGroup = (RadioGroup) findViewById(R.id.feelings);
-      radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-          @Override
-          public void onCheckedChanged(RadioGroup radiogroup,@IdRes int selectId) {
-              int selectedId = radioGroup.getCheckedRadioButtonId();
-              Log.i("TAG", String.valueOf(currentPlaying));
-              switch(selectedId){
-                  case R.id.relax:
-                      Map<String,Object> relax = new HashMap<>();
-                      relax.put("S"+currentPlaying,2);
-                      db.collection("User")
-                              .document(mAuth.getUid())
-                              .collection("week0")
-                              .document("FirstScore")
-                              .update(relax)
-                              .addOnSuccessListener(new OnSuccessListener<Void>(){
-                                  @Override
-                                  public void onSuccess(Void aVoid) {
-                                      Log.i("INFO", "DocumentSnapshot successfully written!");
-                                  }
-                              })
-                              .addOnFailureListener(new OnFailureListener() {
-                                  @Override
-                                  public void onFailure(@NonNull Exception e) {
-                                      Log.i("INFO", "Error writing document", e);
-                                  }
-                              });
-                      break;
-                  case R.id.nofeel:
-                      Map<String,Object> nofeel = new HashMap<>();
-                      nofeel.put("S"+currentPlaying,0);
-                      db.collection("User")
-                              .document(mAuth.getUid())
-                              .collection("week0")
-                              .document("FirstScore")
-                              .update(nofeel)
-                              .addOnSuccessListener(new OnSuccessListener<Void>(){
-                                  @Override
-                                  public void onSuccess(Void aVoid) {
-                                      Log.i("INFO", "DocumentSnapshot successfully written!");
-                                  }
-                              })
-                              .addOnFailureListener(new OnFailureListener() {
-                                  @Override
-                                  public void onFailure(@NonNull Exception e) {
-                                      Log.i("INFO", "Error writing document", e);
-                                  }
-                              });
-                      break;
-                  case R.id.stress:
-                      Map<String,Object> stress = new HashMap<>();
-                      stress.put("S"+currentPlaying,-1);
-                      db.collection("User")
-                              .document(mAuth.getUid())
-                              .collection("week0")
-                              .document("FirstScore")
-                              .update(stress)
-                              .addOnSuccessListener(new OnSuccessListener<Void>(){
-                                  @Override
-                                  public void onSuccess(Void aVoid) {
-                                      Log.i("INFO", "DocumentSnapshot successfully written!");
-                                  }
-                              })
-                              .addOnFailureListener(new OnFailureListener() {
-                                  @Override
-                                  public void onFailure(@NonNull Exception e) {
-                                      Log.i("INFO", "Error writing document", e);
-                                  }
-                              });
-                      break;
-              }
-          }
-      });
+        //上傳評價
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.feelings);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radiogroup,@IdRes int selectId) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                Log.i("TAG", String.valueOf(currentPlaying));
+                switch(selectedId){
+                    case R.id.relax:
+                        Map<String,Object> relax = new HashMap<>();
+                        relax.put("S"+currentPlaying,2);
+                        db.collection("User")
+                                .document(mAuth.getUid())
+                                .collection("week0")
+                                .document("FirstScore")
+                                .update(relax)
+                                .addOnSuccessListener(new OnSuccessListener<Void>(){
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.i("INFO", "DocumentSnapshot successfully written!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.i("INFO", "Error writing document", e);
+                                    }
+                                });
+                        break;
+                    case R.id.nofeel:
+                        Map<String,Object> nofeel = new HashMap<>();
+                        nofeel.put("S"+currentPlaying,0);
+                        db.collection("User")
+                                .document(mAuth.getUid())
+                                .collection("week0")
+                                .document("FirstScore")
+                                .update(nofeel)
+                                .addOnSuccessListener(new OnSuccessListener<Void>(){
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.i("INFO", "DocumentSnapshot successfully written!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.i("INFO", "Error writing document", e);
+                                    }
+                                });
+                        break;
+                    case R.id.stress:
+                        Map<String,Object> stress = new HashMap<>();
+                        stress.put("S"+currentPlaying,-1);
+                        db.collection("User")
+                                .document(mAuth.getUid())
+                                .collection("week0")
+                                .document("FirstScore")
+                                .update(stress)
+                                .addOnSuccessListener(new OnSuccessListener<Void>(){
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.i("INFO", "DocumentSnapshot successfully written!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.i("INFO", "Error writing document", e);
+                                    }
+                                });
+                        break;
+                }
+            }
+        });
 
 
         init();
         preparePlaylist();
-      TimerTask timerTask = new TimerTask() {
-          @Override
-          public void run() {
-              if (isPlaying) {
-                  updateTimer();
-              }
-          }
-      };
-      new Timer().scheduleAtFixedRate(timerTask, 0, 500);
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (isPlaying) {
+                    updateTimer();
+                }
+            }
+        };
+        new Timer().scheduleAtFixedRate(timerTask, 0, 500);
 
     }
     //初始化
@@ -302,7 +302,8 @@ public class MusicTest extends AppCompatActivity {
 
                     break;
                 case R.id.btn_next:
-                    DocumentReference docRef = db.collection("User").document("AmLLKkyqNYVcDCUV3mhTVN8Tfe23").collection("week0").document("FirstScore");
+
+                    DocumentReference docRef = db.collection("User").document(mAuth.getUid()).collection("week0").document("FirstScore");
                     docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -311,7 +312,12 @@ public class MusicTest extends AppCompatActivity {
                                 if (document.exists()) {
                                     Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                                     Log.d("TAG", "DocumentSnapshot data: " + document.getData().size());
+                                    if (document.getData().size() == 8){
+                                        player.pause();
+                                        startActivity(new Intent(getApplicationContext(), homescreen.class));
+                                    }
                                     return;
+
                                 } else {
                                     Log.d("TAG", "No such document");
                                 }
@@ -320,20 +326,17 @@ public class MusicTest extends AppCompatActivity {
                             }
                         }
                     });
-                    getAllDocs();
-                    if(currentPlaying==7 && document.getData().size()){
-                        startActivity(new Intent(getApplicationContext(), homescreen.class));
-                    }else{
-                        //切歌
-                        Log.i("INFO", "onClick: 切歌按鈕被點擊!");
-                        playBtn.setImageResource(R.drawable.pause); //切換成暫停鍵
-                        currentPlaying = ++currentPlaying % playList.size();
-                        prepareMedia();
-                        animator.start();
-                        isPausing = false;
-                        isPlaying = true;
-                        break;
-                    }
+//                    getAllDocs();
+//切歌
+                    Log.i("INFO", "onClick: 切歌按鈕被點擊!");
+                    playBtn.setImageResource(R.drawable.pause); //切換成暫停鍵
+                    currentPlaying = ++currentPlaying % playList.size();
+                    prepareMedia();
+                    animator.start();
+                    isPausing = false;
+                    isPlaying = true;
+                    break;
+
                 default:
                     Log.i("INFO", "onClick: 按鈕被點擊但有bug!");
                     //有bug了
