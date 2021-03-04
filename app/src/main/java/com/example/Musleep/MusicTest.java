@@ -302,7 +302,8 @@ public class MusicTest extends AppCompatActivity {
 
                     break;
                 case R.id.btn_next:
-                    DocumentReference docRef = db.collection("User").document("AmLLKkyqNYVcDCUV3mhTVN8Tfe23").collection("week0").document("FirstScore");
+
+                    DocumentReference docRef = db.collection("User").document(mAuth.getUid()).collection("week0").document("FirstScore");
                     docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -311,7 +312,12 @@ public class MusicTest extends AppCompatActivity {
                                 if (document.exists()) {
                                     Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                                     Log.d("TAG", "DocumentSnapshot data: " + document.getData().size());
+                                    if (document.getData().size() == 8){
+                                        player.pause();
+                                        startActivity(new Intent(getApplicationContext(), homescreen.class));
+                                    }
                                     return;
+
                                 } else {
                                     Log.d("TAG", "No such document");
                                 }
@@ -320,20 +326,17 @@ public class MusicTest extends AppCompatActivity {
                             }
                         }
                     });
-                    getAllDocs();
-                    if(currentPlaying==7 && document.getData().size()){
-                        startActivity(new Intent(getApplicationContext(), homescreen.class));
-                    }else{
-                        //切歌
-                        Log.i("INFO", "onClick: 切歌按鈕被點擊!");
-                        playBtn.setImageResource(R.drawable.pause); //切換成暫停鍵
-                        currentPlaying = ++currentPlaying % playList.size();
-                        prepareMedia();
-                        animator.start();
-                        isPausing = false;
-                        isPlaying = true;
-                        break;
-                    }
+//                    getAllDocs();
+//切歌
+                    Log.i("INFO", "onClick: 切歌按鈕被點擊!");
+                    playBtn.setImageResource(R.drawable.pause); //切換成暫停鍵
+                    currentPlaying = ++currentPlaying % playList.size();
+                    prepareMedia();
+                    animator.start();
+                    isPausing = false;
+                    isPlaying = true;
+                    break;
+
                 default:
                     Log.i("INFO", "onClick: 按鈕被點擊但有bug!");
                     //有bug了
