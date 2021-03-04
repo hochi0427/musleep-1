@@ -63,51 +63,31 @@ public class MusicTest extends AppCompatActivity {
     private boolean isPausing = false, isPlaying = false; //音樂暫停狀態, 音樂第一次播放之後變為true
 
 
-//    Appraise appraise;
-//    FirebaseDatabase database;
-//    DatabaseReference reference;
-    ImageButton save_btn;
-    int i = 0;
+
 
   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_test);
         db = FirebaseFirestore.getInstance();
-        save_btn = findViewById(R.id.btn_next);
-//        appraise = new Appraise ();
         relax = findViewById(R.id.relax);
         nofeel = findViewById(R.id.nofeel);
         stress = findViewById(R.id.stress);
         FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
-      //資料庫
-//      reference = database.getInstance().getReference().child("start");
-//      reference.addValueEventListener(new ValueEventListener() {
-//          @Override
-//          public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//              if (snapshot.exists()){
-//                  i = (int)snapshot.getChildrenCount();
-//              }
-//          }
-//
-//          @Override
-//          public void onCancelled(@NonNull DatabaseError error) {
-//              ///
-//          }
-//      });
-      //上傳radiogroup的ID
+
+      //上傳評價
       RadioGroup radioGroup = (RadioGroup) findViewById(R.id.feelings);
       radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
           @Override
           public void onCheckedChanged(RadioGroup radiogroup,@IdRes int selectId) {
               int selectedId = radioGroup.getCheckedRadioButtonId();
+              Log.i("TAG", String.valueOf(currentPlaying));
               switch(selectedId){
                   case R.id.relax:
                       Map<String,Object> relax = new HashMap<>();
-                      relax.put("S1",0);
+                      relax.put("S"+currentPlaying,2);
                       db.collection("User")
-                              .document("k53CGABt5HZKkYf77DQ5k3qOHOc2")
+                              .document(mAuth.getUid())
                               .collection("week0")
                               .document("FirstScore")
                               .update(relax)
@@ -123,13 +103,12 @@ public class MusicTest extends AppCompatActivity {
                                       Log.i("INFO", "Error writing document", e);
                                   }
                               });
-                      Toast.makeText(MusicTest.this,"覺得放鬆",Toast.LENGTH_SHORT).show();
                       break;
                   case R.id.nofeel:
                       Map<String,Object> nofeel = new HashMap<>();
-                      nofeel.put("S1",1);
+                      nofeel.put("S"+currentPlaying,0);
                       db.collection("User")
-                              .document("k53CGABt5HZKkYf77DQ5k3qOHOc2")
+                              .document(mAuth.getUid())
                               .collection("week0")
                               .document("FirstScore")
                               .update(nofeel)
@@ -145,15 +124,12 @@ public class MusicTest extends AppCompatActivity {
                                       Log.i("INFO", "Error writing document", e);
                                   }
                               });
-
-
-                      Toast.makeText(MusicTest.this,"覺得沒感覺",Toast.LENGTH_SHORT).show();
                       break;
                   case R.id.stress:
                       Map<String,Object> stress = new HashMap<>();
-                      stress.put("S1",2);
+                      stress.put("S"+currentPlaying,-1);
                       db.collection("User")
-                              .document("k53CGABt5HZKkYf77DQ5k3qOHOc2")
+                              .document(mAuth.getUid())
                               .collection("week0")
                               .document("FirstScore")
                               .update(stress)
@@ -169,37 +145,11 @@ public class MusicTest extends AppCompatActivity {
                                       Log.i("INFO", "Error writing document", e);
                                   }
                               });
-
-
-                      Toast.makeText(MusicTest.this,"覺得緊張",Toast.LENGTH_SHORT).show();
                       break;
-
               }
           }
       });
 
-      save_btn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              //評價
-              String m1 = relax.getText().toString();
-              String m2 = nofeel.getText().toString();
-              String m3 = stress.getText().toString();
-
-
-//              if (relax.isChecked()) {
-//                  appraise.setappRaise(m1);
-//                  reference.child(String.valueOf(i+1)).setValue(appraise);
-//                  Log.i("INFO", "onClick: 覺得放鬆");
-//              }else if (nofeel.isChecked()) {
-//                  appraise.setappRaise(m2);
-//                  reference.child(String.valueOf(i+1)).setValue(appraise);
-//              }else {
-//                  appraise.setappRaise(m3);
-//                  reference.child(String.valueOf(i+1)).setValue(appraise);
-//              }
-          }
-      });
 
         init();
         preparePlaylist();
@@ -214,7 +164,7 @@ public class MusicTest extends AppCompatActivity {
       new Timer().scheduleAtFixedRate(timerTask, 0, 500);
 
     }
-
+    //初始化
     void init(){
         diskImage = findViewById(R.id.iv_img1);
         musicProgress = findViewById(R.id.sb_progress);
@@ -240,7 +190,7 @@ public class MusicTest extends AppCompatActivity {
         animator.setRepeatCount(-1); //一直轉動
     }
 
-
+    //歌曲加入陣列
     private void preparePlaylist() {
         Field[] fields = R.raw.class.getFields();
         for (int count = 0; count < fields.length; count++) {
@@ -253,13 +203,14 @@ public class MusicTest extends AppCompatActivity {
             }
         }
     }
-
+    //歌曲長度擷取和顯示
     private void prepareMedia() {
         if (isPlaying) {
             player.stop();
             player.reset();
         }
         player = MediaPlayer.create(getApplicationContext(), playList.get(currentPlaying)); //獲取當前
+        Log.i("TAG", String.valueOf(currentPlaying));
         int musicDuration = player.getDuration(); //當前歌曲長度
         musicProgress.setMax(musicDuration);
         int sec = musicDuration / 1000;
@@ -269,10 +220,7 @@ public class MusicTest extends AppCompatActivity {
         totalTime.setText(musicTime);
         player.start(); //播放音樂
     }
-
-    //評價上傳
-    private void upload() {}
-
+    //更新音樂顯示軸
     private void updateTimer() {
         runOnUiThread(() -> {
             int currentMs = player.getCurrentPosition();
@@ -286,9 +234,8 @@ public class MusicTest extends AppCompatActivity {
     }
 
 
-
+    //控制上一首，下一首，撥放暫停
     private class onClickControl implements View.OnClickListener{
-
         @Override
         public void onClick(View v) {
             switch (v.getId()){
@@ -300,6 +247,7 @@ public class MusicTest extends AppCompatActivity {
                     if (!player.isPlaying()){ //非正在播放狀態才可以切歌
                         currentPlaying = --currentPlaying % playList.size();
                     }
+
                     prepareMedia();
                     isPausing = false;
                     isPlaying = true;
@@ -313,7 +261,7 @@ public class MusicTest extends AppCompatActivity {
                         animator.start();
                         prepareMedia();
                         isPlaying = true;
-                    }else if (isPausing && isPlaying){ //暫停狀態，且被播放過一次
+                    }else if (!isPausing && isPlaying){ //暫停狀態，且被播放過一次
                         //繼續播放
                         playBtn.setImageResource(R.drawable.pause); //切換成暫停鍵
                         animator.resume();
