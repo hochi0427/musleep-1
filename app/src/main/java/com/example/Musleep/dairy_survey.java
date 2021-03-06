@@ -51,8 +51,8 @@ public class dairy_survey extends AppCompatActivity {
                         yes.put("coffee",1);
                         db.collection("User")
                                 .document(mAuth.getUid())
-                                .collection(year+"-"+month+"-"+day)
-                                .document("SleepData")
+                                .collection("SleepDiary")
+                                .document(year+"-"+month+"-"+day)
                                 .update(yes);
                         Toast.makeText(dairy_survey.this,"是",Toast.LENGTH_SHORT).show();
                         break;
@@ -61,8 +61,8 @@ public class dairy_survey extends AppCompatActivity {
                         no.put("coffee",0);
                         db.collection("User")
                                 .document(mAuth.getUid())
-                                .collection(year+"-"+month+"-"+day)
-                                .document("SleepData")
+                                .collection("SleepDiary")
+                                .document(year+"-"+month+"-"+day)
                                 .update(no);
                         Toast.makeText(dairy_survey.this,"否",Toast.LENGTH_SHORT).show();
                         break;
@@ -82,8 +82,8 @@ public class dairy_survey extends AppCompatActivity {
                         yes.put("little_sleep",1);
                         db.collection("User")
                                 .document(mAuth.getUid())
-                                .collection(year+"-"+month+"-"+day)
-                                .document("SleepData")
+                                .collection("SleepDiary")
+                                .document(year+"-"+month+"-"+day)
                                 .update(yes);
                         Toast.makeText(dairy_survey.this,"是",Toast.LENGTH_SHORT).show();
                         break;
@@ -92,8 +92,8 @@ public class dairy_survey extends AppCompatActivity {
                         no.put("little_sleep",0);
                         db.collection("User")
                                 .document(mAuth.getUid())
-                                .collection(year+"-"+month+"-"+day)
-                                .document("SleepData")
+                                .collection("SleepDiary")
+                                .document(year+"-"+month+"-"+day)
                                 .update(no);
                         Toast.makeText(dairy_survey.this,"否",Toast.LENGTH_SHORT).show();
                         break;
