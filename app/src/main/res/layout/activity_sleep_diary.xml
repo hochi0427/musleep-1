@@ -74,18 +74,17 @@
                     android:textColor="#A86959"
                     android:textSize="16sp" />
             </TableRow>
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/item8"
+                    android:id="@+id/item1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
                     android:padding="10sp"
-                    android:text="是否有小睡"
+                    android:text="睡眠中醒來"
                     android:textAlignment="center"
                     android:textColor="#A86959"
                     android:textSize="16sp" />
@@ -96,12 +95,76 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/item9"
+                    android:id="@+id/item2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/light_brown2"
                     android:padding="10sp"
-                    android:text="是否有喝咖啡"
+                    android:text="小睡一會"
+                    android:textAlignment="center"
+                    android:textColor="#A86959"
+                    android:textSize="16sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/item3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_brown2"
+                    android:padding="10sp"
+                    android:text="喝含咖啡因飲料"
+                    android:textAlignment="center"
+                    android:textColor="#A86959"
+                    android:textSize="16sp" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/item4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_brown2"
+                    android:padding="10sp"
+                    android:text="喝酒"
+                    android:textAlignment="center"
+                    android:textColor="#A86959"
+                    android:textSize="16sp" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/item5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_brown2"
+                    android:padding="10sp"
+                    android:text="服用幫助睡眠之藥物"
+                    android:textAlignment="center"
+                    android:textColor="#A86959"
+                    android:textSize="14sp" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/item6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_brown2"
+                    android:padding="10sp"
+                    android:text="運動"
                     android:textAlignment="center"
                     android:textColor="#A86959"
                     android:textSize="16sp" />

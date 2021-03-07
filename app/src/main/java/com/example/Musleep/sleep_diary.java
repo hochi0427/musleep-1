@@ -72,8 +72,12 @@ public class sleep_diary extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull ListViewHolder holder, int position, @NonNull com.example.Musleep.diary_list model) {
                 holder.list_date.setText(model.getDate());
+                holder.list_wakeup.setText(model.getWakeup()+ "");
                 holder.list_coffee.setText(model.getCoffee()+ "");
                 holder.list_nap.setText(model.getNap()+ "");
+                holder.list_wine.setText(model.getWine()+ "");
+                holder.list_drug.setText(model.getDrug()+ "");
+                holder.list_sport.setText(model.getSport()+ "");
 
             }
         };
@@ -130,15 +134,23 @@ public class sleep_diary extends AppCompatActivity {
     private class ListViewHolder extends RecyclerView.ViewHolder{
 
         private TextView list_date;
+        private TextView list_wakeup;
         private TextView list_coffee;
         private TextView list_nap;
+        private TextView list_wine;
+        private TextView list_drug;
+        private TextView list_sport;
 
         public ListViewHolder(@NonNull View itemView){
             super(itemView);
 
+            list_wakeup = itemView.findViewById(R.id.list_wakeup);
             list_date = itemView.findViewById(R.id.list_date);
             list_coffee = itemView.findViewById(R.id.list_coffee);
             list_nap = itemView.findViewById(R.id.list_nap);
+            list_wine = itemView.findViewById(R.id.list_wine);
+            list_drug = itemView.findViewById(R.id.list_drug);
+            list_sport = itemView.findViewById(R.id.list_sport);
         }
     }
 
